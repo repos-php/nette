@@ -261,6 +261,10 @@ final class Debugger
 			set_error_handler(array(__CLASS__, '_errorHandler'));
 			self::$enabled = TRUE;
 		}
+
+		if (!self::$productionMode) {
+			self::$bar->init();
+		}
 	}
 
 
@@ -385,7 +389,7 @@ final class Debugger
 		}
 
 		// debug bar (require HTML & development mode)
-		if (!connection_aborted() && self::$bar && !self::$productionMode && self::isHtmlMode()) {
+		if (!connection_aborted() && self::$bar && !self::$productionMode) {
 			self::$bar->render();
 		}
 	}
